@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Frequency Planner Spring Boot</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+	     crossorigin="anonymous">
+	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+	     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+	     crossorigin="anonymous"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+	     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<style>
+.row{
+margin:10px;
+text-align:center;
+}
+
+
+</style>
+</head>
+<body>
+<span> <span style="color:red">FrequencyGroup1:</span>
+      <span  th:each = "i: ${frequencyGroup1}">
+           <span th:text="${i}"></span>
+      </span>
+</span>
+
+<div> <span style="color:red">FrequencyGroup2:</span>
+      <span  th:each = "k: ${frequencyGroup2}">
+           <span th:text="${k}"></span>
+      </span>
+</div>
+
+<div> <span style="color:red">FrequencyGroup3:</span>
+      <span  th:each = "j: ${frequencyGroup3}">
+           <span th:text="${j}"></span>
+      </span>
+</div>
+
+<div><span style="color:red">Best Score:</span>
+     <span th:text="${score}"></span>
+</div>
+  <div class="row" th:each = "i: ${frequencyPlan}">
+     <table class="type table"> 
+     	 <tbody>
+	     	 <tr>
+		     	 <td><p style="color: red;">Id:</p><span th:text="${i.id}"></span></td>
+			  	 <td><span class="type"><p style="color: red;">Frequency:</p></span><span th:text="${i.frequency.frequencyValue}"></span></td> 		
+			  	 <td><span class="type"><p style="color: red;">Site:</p></span><span th:text="${i.site.idSite}"></span></td>
+			  	 <td><span class="type"><p style="color: red;">Type:</p></span><span th:text="${i.type}"></span></td>
+			  	  <td><span class="type"><p style="color: red;">Position:</p></span><span th:text="${i.maio.position}"></span></td>
+			  	   <td><span class="type"><p style="color: red;">FrequencyGroup:</p></span><span th:text="${i.maio.frequencyGroupNumber}"></span></td>
+	     	 </tr> 
+     	 </tbody>	
+	
+	      
+  	 <div class="row" th:each = "j: ${i.neighbours}">
+     <table class="type table"> 
+     	 <tbody>
+	     	 <tr>
+		     	 <td><p>Neighbour Id:</p><span th:text="${j.id}"></span> </td>
+			  	 <td><span class="type"><p>Neighbour Frequency:</p></span>  <span th:text="${j.frequency.frequencyValue}"></span></td> 		
+			  	 <td><span class="type"><p>Neighbour Site:</p></span><span th:text="${j.site.idSite}"></span></td>
+			  	 <td><span class="type"><p>Neighbour Type:</p></span><span th:text="${j.type}"></span></td>
+			  	  <td><span class="type"><p>Position:</p></span><span th:text="${j.maio.position}"></span></td>
+			  	   <td><span class="type"><p>FrequencyGroup:</p></span><span th:text="${j.maio.frequencyGroupNumber}"></span></td>
+	     	
+	     	 </tr> 
+     	 </tbody>	
+	 </table>
+	</div>
+     
+  </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+  <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
+  <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
+
+  <!-- Domain model configuration -->
+  <solutionClass>com.example.frequencyPlanner.domain.FrequencyPlan</solutionClass>
+  <entityClass>com.example.frequencyPlanner.domain.Transmitter</entityClass>
+
+  <!-- Score configuration -->
+  <scoreDirectorFactory>
+       <easyScoreCalculatorClass>com.example.frequencyPlanner.score.calculator.FrequencyEasyScoreCalculator</easyScoreCalculatorClass>
+   <!--   <easyScoreCalculatorClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingMapBasedEasyScoreCalculator</easyScoreCalculatorClass>-->
+    <!--<constraintProviderClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingConstraintProvider</constraintProviderClass>-->
+    <!--<incrementalScoreCalculatorClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingIncrementalScoreCalculator</incrementalScoreCalculatorClass>-->
+      <!-- <scoreDrl>com/example/optaplanner/frequencyPlanner/solve/FrequencyPlannerConstraints.drl</scoreDrl> -->
+    <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+    <!--<assertionScoreDirectorFactory>-->
+      <!--<easyScoreCalculatorClass>org.optaplanner.examples.cloudbalancing.optional.score.CloudBalancingMapBasedEasyScoreCalculator</easyScoreCalculatorClass>-->
+    <!--</assertionScoreDirectorFactory>-->
+  </scoreDirectorFactory>
+
+  <!-- Optimization algorithms configuration -->
+ <termination>
+        <bestScoreLimit>0hard/0soft</bestScoreLimit>
+        <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+    </termination>
+ 
+
+  <!-- Power tweaked optimization algorithms configuration -->
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+  </constructionHeuristic>
+  
+  <!--   <exhaustiveSearch>
+    <exhaustiveSearchType>BRUTE_FORCE</exhaustiveSearchType>
+  </exhaustiveSearch> -->
+  <!--<localSearch>-->
+    <!--<unionMoveSelector>-->
+      <!--<changeMoveSelector/>-->
+      <!--<swapMoveSelector/>-->
+      <!--<pillarChangeMoveSelector/>-->
+      <!--<pillarSwapMoveSelector/>-->
+    <!--</unionMoveSelector>-->
+    <!--<acceptor>-->
+      <!--<entityTabuSize>7</entityTabuSize>-->
+    <!--</acceptor>-->
+    <!--<forager>-->
+     <!--  <acceptedCountLimit>1000</acceptedCountLimit> -->
+    <!--</forager>-->
+  <!--</localSearch>-->
+
+  <!-- Alternative power tweaked optimization algorithms configuration -->
+  <!--<partitionedSearch>-->
+    <!--<solutionPartitionerClass>org.optaplanner.examples.cloudbalancing.optional.partitioner.CloudBalancePartitioner</solutionPartitionerClass>-->
+    <!--<solutionPartitionerCustomProperties>-->
+      <!--<partCount>4</partCount>-->
+      <!--<minimumProcessListSize>300</minimumProcessListSize>-->
+    <!--</solutionPartitionerCustomProperties>-->
+  <!--</partitionedSearch>-->
+</solver>

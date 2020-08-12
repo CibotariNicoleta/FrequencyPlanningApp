@@ -1,0 +1,68 @@
+/*
+ * Copyright 2010 Red Hat, Inc. and/or its affiliates.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.example.optaplanner.frequencyPlanner.solve;
+    dialect "java"
+
+import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScoreHolder;
+
+import com.example.frequencyPlanner.domain.Frequency;
+import com.example.frequencyPlanner.domain.FrequencyPlan;
+import domain.Transmitter;
+import cocom.example.frequencyPlanner.domain.TransmitteryPlanner.domain.Site;
+
+global HardSoftScoreHolder scoreHolder;
+
+
+// ############################################################################
+// Hard constraints
+// ############################################################################
+
+
+
+
+rule "no neighbour with the same frequency"
+  when 
+      $transmitter:Transmitter(frequency!=null, $frequency : frequency.getFrequencyValue() , $neighbours : neighbours)
+         Transmitter(frequency!=null && frequency.getFrequencyValue() == $frequency) from $neighbours
+          
+  then
+      
+       scoreHolder.addHardConstraintMatch(kcontext, -1);
+      end
+      
+      
+ rule "transmitter from the same site with frequency difference > 2 "    
+   when 
+      $transmitter:Transmitter($siteId : site.getIdSite(), $id : getId(),frequency!=null, $frequency : frequency.getFrequencyValue() )
+        Transmitter(frequency!=null && site.getIdSite == $siteId && getId()!=$id && Math.abs(frequency.getFrequencyValue() - $frequency)<2 )
+   then  
+      scoreHolder.addHardConstraintMatch(kcontext, -2);
+   end
+      
+      
+ /* rule "is null frequency"
+  when 
+      $transmitter:Transmitter($frequency : frequency == null , $neighbours : neighbours)
+         $neighboursIterator : Transmitter($neighbourFrequency : frequency == null) from $neighbours
+            
+  then
+      
+       scoreHolder.addHardConstraintMatch(kcontext, -1);
+      end*/
+
+
+
+
